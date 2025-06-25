@@ -1,0 +1,1934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DriveDeck - Premium Vehicle Showroom | Professional Project</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- AOS Animation Library -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #0d6efd;
+            --secondary-color: #6c757d;
+            --success-color: #198754;
+            --warning-color: #ffc107;
+            --danger-color: #dc3545;
+            --dark-color: #212529;
+            --light-color: #f8f9fa;
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-dark: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            --shadow-lg: 0 10px 30px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-color);
+            transition: var(--transition);
+        }
+
+        /* Dark Mode Styles */
+        [data-theme="dark"] {
+            --dark-color: #ffffff;
+            --light-color: #1a1a1a;
+            background-color: #1a1a1a;
+            color: #ffffff;
+        }
+
+        [data-theme="dark"] .navbar {
+            background: rgba(26, 26, 26, 0.95) !important;
+        }
+
+        [data-theme="dark"] .card {
+            background-color: #2d2d2d;
+            border-color: #444;
+        }
+
+        [data-theme="dark"] .bg-light {
+            background-color: #2d2d2d !important;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 10px;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95) !important;
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-lg);
+            transition: var(--transition);
+        }
+
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 1.8rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: var(--transition);
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            min-height: 100vh;
+            background: var(--gradient-primary);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><defs><linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%23667eea;stop-opacity:1" /><stop offset="100%" style="stop-color:%23764ba2;stop-opacity:1" /></linearGradient></defs><rect width="1200" height="800" fill="url(%23grad1)"/><circle cx="200" cy="200" r="50" fill="rgba(255,255,255,0.1)"/><circle cx="800" cy="150" r="30" fill="rgba(255,255,255,0.1)"/><circle cx="1000" cy="400" r="40" fill="rgba(255,255,255,0.1)"/><circle cx="300" cy="600" r="25" fill="rgba(255,255,255,0.1)"/></svg>') center/cover;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            color: white;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: slideInUp 1s ease-out;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: slideInUp 1s ease-out 0.2s both;
+        }
+
+        .hero-buttons {
+            animation: slideInUp 1s ease-out 0.4s both;
+        }
+
+        .btn-custom {
+            padding: 15px 40px;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-custom::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: var(--transition);
+        }
+
+        .btn-custom:hover::before {
+            left: 100%;
+        }
+
+        .btn-custom:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background: var(--gradient-dark);
+            color: white;
+            padding: 80px 0;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            color: var(--warning-color);
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Vehicle Cards */
+        .vehicle-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            transition: var(--transition);
+            height: 100%;
+        }
+
+        .vehicle-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .vehicle-image {
+            position: relative;
+            overflow: hidden;
+            height: 250px;
+        }
+
+        .vehicle-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .vehicle-card:hover .vehicle-image img {
+            transform: scale(1.1);
+        }
+
+        .vehicle-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .badge-available {
+            background: var(--success-color);
+            color: white;
+        }
+
+        .badge-sold {
+            background: var(--danger-color);
+            color: white;
+        }
+
+        .vehicle-info {
+            padding: 1.5rem;
+        }
+
+        .vehicle-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .vehicle-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .vehicle-features {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--secondary-color);
+        }
+
+        /* Filter Section */
+        .filter-section {
+            background: var(--light-color);
+            padding: 2rem 0;
+            margin-bottom: 3rem;
+        }
+
+        .filter-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .filter-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .filter-label {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dark-color);
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 20px;
+            border: 2px solid var(--primary-color);
+            background: transparent;
+            color: var(--primary-color);
+            border-radius: 25px;
+            font-weight: 500;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        /* Testimonial Section */
+        .testimonial-section {
+            background: var(--gradient-secondary);
+            padding: 80px 0;
+            color: white;
+        }
+
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            height: 100%;
+        }
+
+        .testimonial-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .testimonial-rating {
+            color: var(--warning-color);
+        }
+
+        /* About Section */
+        .about-section {
+            padding: 80px 0;
+        }
+
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-image {
+            flex: 1;
+            text-align: center;
+        }
+
+        .about-image img {
+            max-width: 100%;
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-item-card {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+            transition: var(--transition);
+        }
+
+        .feature-item-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1rem;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: var(--light-color);
+            padding: 80px 0;
+        }
+
+        .contact-form {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .form-control {
+            border-radius: 10px;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+        }
+
+        .contact-info {
+            padding: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 50px 0 20px;
+        }
+
+        .footer-section {
+            margin-bottom: 2rem;
+        }
+
+        .footer-title {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--warning-color);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            transform: translateY(-3px);
+            color: white;
+        }
+
+        /* Dark Mode Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            z-index: 1000;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .theme-toggle:hover {
+            background: var(--gradient-primary);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .filter-buttons {
+                justify-content: center;
+            }
+            
+            .theme-toggle {
+                right: 10px;
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+        }
+
+        /* Chart Container */
+        .chart-container {
+            position: relative;
+            height: 400px;
+            margin: 2rem 0;
+        }
+
+        /* Animation Classes */
+        .fade-in {
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .slide-in-left {
+            animation: slideInLeft 1s ease-out;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .slide-in-right {
+            animation: slideInRight 1s ease-out;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Dark Mode Toggle -->
+    <button class="theme-toggle" onclick="toggleTheme()">
+        <i class="fas fa-moon" id="theme-icon"></i>
+    </button>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#home">
+                <i class="fas fa-car"></i> DriveDeck
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#vehicles" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+                            Vehicles
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#vehicles" onclick="filterVehicles('sedan')">Sedan</a></li>
+                            <li><a class="dropdown-item" href="#vehicles" onclick="filterVehicles('suv')">SUV</a></li>
+                            <li><a class="dropdown-item" href="#vehicles" onclick="filterVehicles('electric')">Electric</a></li>
+                            <li><a class="dropdown-item" href="#vehicles" onclick="filterVehicles('luxury')">Luxury</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#services">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="hero-bg"></div>
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Welcome to DriveDeck</h1>
+                <p class="hero-subtitle">Your Premium Destination for Luxury Vehicles</p>
+                <div class="hero-buttons">
+                    <button class="btn btn-light btn-custom me-3" onclick="scrollToSection('vehicles')">
+                        <i class="fas fa-car me-2"></i>Explore Vehicles
+                    </button>
+                    <button class="btn btn-outline-light btn-custom" onclick="scrollToSection('contact')">
+                        <i class="fas fa-phone me-2"></i>Contact Us
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <div class="stat-number" data-count="500">0</div>
+                        <div class="stat-label">Vehicles Sold</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <div class="stat-number" data-count="1200">0</div>
+                        <div class="stat-label">Happy Customers</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <div class="stat-number" data-count="50">0</div>
+                        <div class="stat-label">Expert Staff</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <div class="stat-number" data-count="15">0</div>
+                        <div class="stat-label">Years Experience</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vehicles Section -->
+    <section id="vehicles" class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-4 fw-bold mb-3">Our Premium Collection</h2>
+                <p class="lead">Discover the finest selection of luxury and performance vehicles</p>
+            </div>
+
+            <!-- Filter Section -->
+            <div class="filter-section">
+                <div class="container">
+                    <div class="filter-card">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="filter-group">
+                                    <div class="filter-label">Category</div>
+                                    <div class="filter-buttons">
+                                        <button class="filter-btn active" onclick="filterVehicles('all')">All</button>
+                                        <button class="filter-btn" onclick="filterVehicles('sedan')">Sedan</button>
+                                        <button class="filter-btn" onclick="filterVehicles('suv')">SUV</button>
+                                        <button class="filter-btn" onclick="filterVehicles('electric')">Electric</button>
+                                        <button class="filter-btn" onclick="filterVehicles('luxury')">Luxury</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="filter-group">
+                                    <div class="filter-label">Price Range</div>
+                                    <div class="filter-buttons">
+                                        <button class="filter-btn" onclick="filterByPrice('low')">Under $30k</button>
+                                        <button class="filter-btn" onclick="filterByPrice('medium')">$30k - $60k</button>
+                                        <button class="filter-btn" onclick="filterByPrice('high')">$60k+</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vehicle Grid -->
+            <div class="row" id="vehicleGrid">
+                <!-- Vehicle cards will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-4 fw-bold mb-3">Our Services</h2>
+                <p class="lead">Comprehensive solutions for all your automotive needs</p>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 text-center border-0 shadow-lg">
+                        <div class="card-body p-4">
+                            <div class="feature-icon mb-3">
+                                <i class="fas fa-shopping-cart"></i>
+                            </div>
+                            <h4 class="card-title mb-3">Buy Vehicles</h4>
+                            <p class="card-text">Find your perfect vehicle from our extensive collection of premium cars with competitive pricing and financing options.</p>
+                            <button class="btn btn-primary btn-custom" data-bs-toggle="modal" data-bs-target="#buyModal">
+                                <i class="fas fa-search me-2"></i>Browse Inventory
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 text-center border-0 shadow-lg">
+                        <div class="card-body p-4">
+                            <div class="feature-icon mb-3">
+                                <i class="fas fa-handshake"></i>
+                            </div>
+                            <h4 class="card-title mb-3">Sell Your Car</h4>
+                            <p class="card-text">Get the best value for your vehicle with our professional appraisal service and hassle-free selling process.</p>
+                            <button class="btn btn-success btn-custom" data-bs-toggle="modal" data-bs-target="#sellModal">
+                                <i class="fas fa-dollar-sign me-2"></i>Get Quote
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 text-center border-0 shadow-lg">
+                        <div class="card-body p-4">
+                            <div class="feature-icon mb-3">
+                                <i class="fas fa-key"></i>
+                            </div>
+                            <h4 class="card-title mb-3">Rent a Vehicle</h4>
+                            <p class="card-text">Experience luxury with our premium rental fleet. Perfect for special occasions or extended test drives.</p>
+                            <button class="btn btn-warning btn-custom" data-bs-toggle="modal" data-bs-target="#rentModal">
+                                <i class="fas fa-calendar me-2"></i>Book Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sales Chart Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-4 fw-bold mb-3">Our Performance</h2>
+                <p class="lead">Track record of excellence in vehicle sales and customer satisfaction</p>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="chart-container">
+                        <canvas id="salesChart"></canvas>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="chart-container">
+                        <canvas id="categoryChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonial-section">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-4 fw-bold mb-3">What Our Customers Say</h2>
+                <p class="lead opacity-75">Real experiences from our satisfied customers</p>
+            </div>
+            
+            <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="testimonial-card">
+                                    <div class="testimonial-avatar">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                    <div class="testimonial-text">
+                                        "Exceptional service and an incredible selection of vehicles. The team at DriveDeck made my car buying experience seamless and enjoyable."
+                                    </div>
+                                    <div class="testimonial-author">Sarah Johnson</div>
+                                    <div class="testimonial-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="testimonial-card">
+                                    <div class="testimonial-avatar">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                    <div class="testimonial-text">
+                                        "Professional, knowledgeable, and trustworthy. I found my dream car here and couldn't be happier with the entire process."
+                                    </div>
+                                    <div class="testimonial-author">Michael Chen</div>
+                                    <div class="testimonial-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="testimonial-card">
+                                    <div class="testimonial-avatar">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                    <div class="testimonial-text">
+                                        "Outstanding customer service and competitive pricing. The rental service was perfect for my business needs."
+                                    </div>
+                                    <div class="testimonial-author">Emily Rodriguez</div>
+                                    <div class="testimonial-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-4 fw-bold mb-3">About DriveDeck</h2>
+                <p class="lead">Your trusted partner in automotive excellence</p>
+            </div>
+            
+            <div class="about-content">
+                <div class="about-text slide-in-left">
+                    <h3 class="mb-4">Our Mission</h3>
+                    <p class="mb-4">
+                        At DriveDeck, we are committed to providing exceptional automotive experiences through our premium selection of vehicles, professional service, and customer-centric approach. Our mission is to make vehicle ownership accessible, enjoyable, and hassle-free for everyone.
+                    </p>
+                    <p class="mb-4">
+                        With over 15 years of experience in the automotive industry, we have built a reputation for trust, quality, and excellence. Our team of dedicated professionals works tirelessly to ensure every customer finds their perfect vehicle match.
+                    </p>
+                    <div class="row">
+                        <div class="col-6">
+                            <h4 class="text-primary">500+</h4>
+                            <p>Vehicles Sold</p>
+                        </div>
+                        <div class="col-6">
+                            <h4 class="text-primary">98%</h4>
+                            <p>Customer Satisfaction</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image slide-in-right">
+                    <div class="bg-primary rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 300px; height: 300px;">
+                        <i class="fas fa-car text-white" style="font-size: 8rem;"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-item-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h4>Quality Assurance</h4>
+                    <p>Every vehicle undergoes rigorous inspection to ensure the highest quality standards.</p>
+                </div>
+                <div class="feature-item-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <h4>Competitive Pricing</h4>
+                    <p>We offer the best market prices with flexible financing options to suit your budget.</p>
+                </div>
+                <div class="feature-item-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h4>Expert Support</h4>
+                    <p>Our knowledgeable team provides expert guidance throughout your vehicle journey.</p>
+                </div>
+                <div class="feature-item-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-wrench"></i>
+                    </div>
+                    <h4>After-Sales Service</h4>
+                    <p>Comprehensive maintenance and support services to keep your vehicle in perfect condition.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-4 fw-bold mb-3">Get In Touch</h2>
+                <p class="lead">Ready to find your perfect vehicle? Contact us today!</p>
+            </div>
+            
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="contact-form">
+                        <form id="contactForm">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="firstName" class="form-label">First Name</label>
+                                    <input type="text" class="form-control" id="firstName" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="lastName" class="form-label">Last Name</label>
+                                    <input type="text" class="form-control" id="lastName" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="email" class="form-label">Email Address</label>
+                                    <input type="email" class="form-control" id="email" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="phone" class="form-label">Phone Number</label>
+                                    <input type="tel" class="form-control" id="phone" required>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="interest" class="form-label">Interest</label>
+                                <select class="form-control" id="interest" required>
+                                    <option value="">Select your interest</option>
+                                    <option value="buy">Buy a Vehicle</option>
+                                    <option value="sell">Sell My Vehicle</option>
+                                    <option value="rent">Rent a Vehicle</option>
+                                    <option value="service">Service & Maintenance</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="message" class="form-label">Message</label>
+                                <textarea class="form-control" id="message" rows="5" required></textarea>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary btn-custom">
+                                    <i class="fas fa-paper-plane me-2"></i>Send Message
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4">
+                    <div class="contact-info">
+                        <h4 class="mb-4">Contact Information</h4>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>
+                                <h6>Address</h6>
+                                <p>123 Auto Plaza, Downtown District<br>New York, NY 10001</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div>
+                                <h6>Phone</h6>
+                                <p>+1 (555) 123-4567</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h6>Email</h6>
+                                <p>info@drivedeck.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div>
+                                <h6>Business Hours</h6>
+                                <p>Mon-Fri: 9AM-7PM<br>Sat: 9AM-5PM<br>Sun: 12PM-5PM</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="footer-section">
+                        <h3 class="footer-title">
+                            <i class="fas fa-car me-2"></i>DriveDeck
+                        </h3>
+                        <p class="mb-4">Your premium destination for luxury vehicles. We provide exceptional service and quality vehicles to make your automotive dreams come true.</p>
+                        <div class="social-links">
+                            <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="footer-section">
+                        <h5 class="footer-title">Quick Links</h5>
+                        <ul class="footer-links">
+                            <li><a href="#home">Home</a></li>
+                            <li><a href="#vehicles">Vehicles</a></li>
+                            <li><a href="#services">Services</a></li>
+                            <li><a href="#about">About</a></li>
+                            <li><a href="#contact">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="footer-section">
+                        <h5 class="footer-title">Services</h5>
+                        <ul class="footer-links">
+                            <li><a href="#">Buy Vehicle</a></li>
+                            <li><a href="#">Sell Vehicle</a></li>
+                            <li><a href="#">Rent Vehicle</a></li>
+                            <li><a href="#">Financing</a></li>
+                            <li><a href="#">Insurance</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="footer-section">
+                        <h5 class="footer-title">Categories</h5>
+                        <ul class="footer-links">
+                            <li><a href="#">Sedan</a></li>
+                            <li><a href="#">SUV</a></li>
+                            <li><a href="#">Electric</a></li>
+                            <li><a href="#">Luxury</a></li>
+                            <li><a href="#">Sports</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="footer-section">
+                        <h5 class="footer-title">Support</h5>
+                        <ul class="footer-links">
+                            <li><a href="#">Help Center</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Terms of Service</a></li>
+                            <li><a href="#">Warranty</a></li>
+                            <li><a href="#">FAQ</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="text-center">
+                <p>&copy; 2024 DriveDeck. All rights reserved. | Designed for Professional Portfolio</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Buy Modal -->
+    <div class="modal fade" id="buyModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Find Your Perfect Vehicle</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="buyForm">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Full Name</label>
+                                <input type="text" class="form-control" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Phone</label>
+                                <input type="tel" class="form-control" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Preferred Contact</label>
+                                <select class="form-control">
+                                    <option>Phone</option>
+                                    <option>Email</option>
+                                    <option>Both</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Vehicle Type</label>
+                                <select class="form-control">
+                                    <option>Sedan</option>
+                                    <option>SUV</option>
+                                    <option>Electric</option>
+                                    <option>Luxury</option>
+                                    <option>Sports</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Budget Range</label>
+                                <select class="form-control">
+                                    <option>Under $30,000</option>
+                                    <option>$30,000 - $60,000</option>
+                                    <option>$60,000 - $100,000</option>
+                                    <option>Above $100,000</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Additional Requirements</label>
+                            <textarea class="form-control" rows="3" placeholder="Tell us about your specific needs..."></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Submit Inquiry</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sell Modal -->
+    <div class="modal fade" id="sellModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Sell Your Vehicle</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="sellForm">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Full Name</label>
+                                <input type="text" class="form-control" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Phone</label>
+                                <input type="tel" class="form-control" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Vehicle Year</label>
+                                <input type="number" class="form-control" min="1980" max="2024" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Make</label>
+                                <input type="text" class="form-control" placeholder="e.g., Toyota, BMW" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Model</label>
+                                <input type="text" class="form-control" placeholder="e.g., Camry, X5" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Mileage</label>
+                                <input type="number" class="form-control" placeholder="Miles" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Condition</label>
+                                <select class="form-control">
+                                    <option>Excellent</option>
+                                    <option>Good</option>
+                                    <option>Fair</option>
+                                    <option>Poor</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Additional Details</label>
+                            <textarea class="form-control" rows="3" placeholder="Describe your vehicle's condition, features, service history..."></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-success">Get Appraisal</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Rent Modal -->
+    <div class="modal fade" id="rentModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Rent a Vehicle</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="rentForm">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Full Name</label>
+                                <input type="text" class="form-control" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Phone</label>
+                                <input type="tel" class="form-control" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Driver's License</label>
+                                <input type="text" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Pickup Date</label>
+                                <input type="date" class="form-control" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Return Date</label>
+                                <input type="date" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Vehicle Type</label>
+                                <select class="form-control">
+                                    <option>Economy</option>
+                                    <option>Compact</option>
+                                    <option>Mid-size</option>
+                                    <option>Luxury</option>
+                                    <option>SUV</option>
+                                    <option>Sports</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Rental Purpose</label>
+                                <select class="form-control">
+                                    <option>Business</option>
+                                    <option>Personal</option>
+                                    <option>Special Event</option>
+                                    <option>Test Drive</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Special Requests</label>
+                            <textarea class="form-control" rows="3" placeholder="Any special requirements or requests..."></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-warning">Book Rental</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Vehicle Detail Modal -->
+    <div class="modal fade" id="vehicleModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="vehicleModalTitle">Vehicle Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="vehicleModalBody">
+                    <!-- Vehicle details will be populated by JavaScript -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Contact About This Vehicle</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- AOS Animation JS -->
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+    <script>
+        // Vehicle Data
+        const vehicles = [
+            {
+                id: 1,
+                name: "BMW X5 M Sport",
+                price: 65000,
+                category: "luxury",
+                status: "available",
+                image: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect width='400' height='300' fill='%23f8f9fa'/><rect x='50' y='100' width='300' height='100' rx='20' fill='%23343a40'/><circle cx='100' cy='220' r='25' fill='%23212529'/><circle cx='300' cy='220' r='25' fill='%23212529'/><rect x='80' y='120' width='240' height='40' rx='5' fill='%23495057'/><text x='200' y='270' text-anchor='middle' fill='%23666' font-family='Arial' font-size='14'>BMW X5 M Sport</text></svg>",
+                year: 2023,
+                mileage: "15,000",
+                fuel: "Gasoline",
+                transmission: "Automatic",
+                features: ["Leather Seats", "Sunroof", "Navigation", "Premium Audio"]
+            },
+            {
+                id: 2,
+                name: "Tesla Model S",
+                price: 75000,
+                category: "electric",
+                status: "available",
+                image: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect width='400' height='300' fill='%23f8f9fa'/><rect x='50' y='100' width='300' height='100' rx='20' fill='%23dc3545'/><circle cx='100' cy='220' r='25' fill='%23212529'/><circle cx='300' cy='220' r='25' fill='%23212529'/><rect x='80' y='120' width='240' height='40' rx='5' fill='%23495057'/><text x='200' y='270' text-anchor='middle' fill='%23666' font-family='Arial' font-size='14'>Tesla Model S</text></svg>",
+                year: 2023,
+                mileage: "8,000",
+                fuel: "Electric",
+                transmission: "Automatic",
+                features: ["Autopilot", "Premium Interior", "Supercharging", "Glass Roof"]
+            },
+            {
+                id: 3,
+                name: "Mercedes-Benz E-Class",
+                price: 55000,
+                category: "sedan",
+                status: "available",
+                image: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect width='400' height='300' fill='%23f8f9fa'/><rect x='50' y='100' width='300' height='100' rx='20' fill='%23198754'/><circle cx='100' cy='220' r='25' fill='%23212529'/><circle cx='300' cy='220' r='25' fill='%23212529'/><rect x='80' y='120' width='240' height='40' rx='5' fill='%23495057'/><text x='200' y='270' text-anchor='middle' fill='%23666' font-family='Arial' font-size='14'>Mercedes E-Class</text></svg>",
+                year: 2022,
+                mileage: "22,000",
+                fuel: "Gasoline",
+                transmission: "Automatic",
+                features: ["Massage Seats", "Ambient Lighting", "Driver Assistance", "Premium Sound"]
+            },
+            {
+                id: 4,
+                name: "Audi Q7 Quattro",
+                price: 58000,
+                category: "suv",
+                status: "sold",
+                image: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect width='400' height='300' fill='%23f8f9fa'/><rect x='50' y='100' width='300' height='100' rx='20' fill='%230d6efd'/><circle cx='100' cy='220' r='25' fill='%23212529'/><circle cx='300' cy='220' r='25' fill='%23212529'/><rect x='80' y='120' width='240' height='40' rx='5' fill='%23495057'/><text x='200' y='270' text-anchor='middle' fill='%23666' font-family='Arial' font-size='14'>Audi Q7 Quattro</text></svg>",
+                year: 2023,
+                mileage: "12,000",
+                fuel: "Gasoline",
+                transmission: "Automatic",
+                features: ["7 Seats", "Quattro AWD", "Virtual Cockpit", "Bang & Olufsen Audio"]
+            },
+            {
+                id: 5,
+                name: "Toyota Camry Hybrid",
+                price: 28000,
+                category: "sedan",
+                status: "available",
+                image: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect width='400' height='300' fill='%23f8f9fa'/><rect x='50' y='100' width='300' height='100' rx='20' fill='%23ffc107'/><circle cx='100' cy='220' r='25' fill='%23212529'/><circle cx='300' cy='220' r='25' fill='%23212529'/><rect x='80' y='120' width='240' height='40' rx='5' fill='%23495057'/><text x='200' y='270' text-anchor='middle' fill='%23666' font-family='Arial' font-size='14'>Toyota Camry Hybrid</text></svg>",
+                year: 2023,
+                mileage: "18,000",
+                fuel: "Hybrid",
+                transmission: "CVT",
+                features: ["Hybrid Engine", "Safety Sense", "Wireless Charging", "Smart Entry"]
+            },
+            {
+                id: 6,
+                name: "Porsche 911 Carrera",
+                price: 95000,
+                category: "luxury",
+                status: "available",
+                image: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect width='400' height='300' fill='%23f8f9fa'/><rect x='50' y='100' width='300' height='100' rx='20' fill='%23fd7e14'/><circle cx='100' cy='220' r='25' fill='%23212529'/><circle cx='300' cy='220' r='25' fill='%23212529'/><rect x='80' y='120' width='240' height='40' rx='5' fill='%23495057'/><text x='200' y='270' text-anchor='middle' fill='%23666' font-family='Arial' font-size='14'>Porsche 911 Carrera</text></svg>",
+                year: 2023,
+                mileage: "5,000",
+                fuel: "Gasoline",
+                transmission: "Manual",
+                features: ["Sport Exhaust", "PASM", "Sport Chrono", "Alcantara Interior"]
+            }
+        ];
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize AOS
+            AOS.init({
+                duration: 1000,
+                once: true
+            });
+
+            // Load vehicles
+            loadVehicles();
+
+            // Initialize charts
+            initializeCharts();
+
+            // Initialize event listeners
+            initializeEventListeners();
+
+            // Start counter animations
+            animateCounters();
+
+            // Update navbar on scroll
+            updateNavbarOnScroll();
+        });
+
+        // Load and display vehicles
+        function loadVehicles(filteredVehicles = vehicles) {
+            const vehicleGrid = document.getElementById('vehicleGrid');
+            vehicleGrid.innerHTML = '';
+
+            filteredVehicles.forEach(vehicle => {
+                const vehicleCard = createVehicleCard(vehicle);
+                vehicleGrid.appendChild(vehicleCard);
+            });
+        }
+
+        // Create vehicle card element
+        function createVehicleCard(vehicle) {
+            const col = document.createElement('div');
+            col.className = 'col-lg-4 col-md-6 mb-4';
+
+            col.innerHTML = `
+                <div class="vehicle-card" onclick="showVehicleDetails(${vehicle.id})">
+                    <div class="vehicle-image">
+                        <img src="${vehicle.image}" alt="${vehicle.name}">
+                        <div class="vehicle-badge ${vehicle.status === 'available' ? 'badge-available' : 'badge-sold'}">
+                            ${vehicle.status === 'available' ? 'Available' : 'Sold'}
+                        </div>
+                    </div>
+                    <div class="vehicle-info">
+                        <h5 class="vehicle-name">${vehicle.name}</h5>
+                        <div class="vehicle-price">$${vehicle.price.toLocaleString()}</div>
+                        <div class="vehicle-features">
+                            <div class="feature-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>${vehicle.year}</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-tachometer-alt"></i>
+                                <span>${vehicle.mileage}</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-gas-pump"></i>
+                                <span>${vehicle.fuel}</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary w-100" onclick="event.stopPropagation(); showVehicleDetails(${vehicle.id})">
+                            View Details
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            return col;
+        }
+
+        // Filter vehicles by category
+        function filterVehicles(category) {
+            // Update active filter button
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Filter and display vehicles
+            const filteredVehicles = category === 'all' 
+                ? vehicles 
+                : vehicles.filter(vehicle => vehicle.category === category);
+            
+            loadVehicles(filteredVehicles);
+        }
+
+        // Filter vehicles by price range
+        function filterByPrice(range) {
+            let filteredVehicles;
+            
+            switch(range) {
+                case 'low':
+                    filteredVehicles = vehicles.filter(vehicle => vehicle.price < 30000);
+                    break;
+                case 'medium':
+                    filteredVehicles = vehicles.filter(vehicle => vehicle.price >= 30000 && vehicle.price <= 60000);
+                    break;
+                case 'high':
+                    filteredVehicles = vehicles.filter(vehicle => vehicle.price > 60000);
+                    break;
+                default:
+                    filteredVehicles = vehicles;
+            }
+            
+            loadVehicles(filteredVehicles);
+        }
+
+        // Show vehicle details in modal
+        function showVehicleDetails(vehicleId) {
+            const vehicle = vehicles.find(v => v.id === vehicleId);
+            if (!vehicle) return;
+
+            const modal = document.getElementById('vehicleModal');
+            const modalTitle = document.getElementById('vehicleModalTitle');
+            const modalBody = document.getElementById('vehicleModalBody');
+
+            modalTitle.textContent = vehicle.name;
+            modalBody.innerHTML = `
+                <div class="row">
+                    <div class="col-md-6">
+                        <img src="${vehicle.image}" alt="${vehicle.name}" class="img-fluid rounded mb-3">
+                    </div>
+                    <div class="col-md-6">
+                        <h4 class="text-primary mb-3">$${vehicle.price.toLocaleString()}</h4>
+                        <div class="mb-3">
+                            <strong>Status:</strong> 
+                            <span class="badge ${vehicle.status === 'available' ? 'bg-success' : 'bg-danger'}">
+                                ${vehicle.status === 'available' ? 'Available' : 'Sold'}
+                            </span>
+                        </div>
+                        <div class="mb-2"><strong>Year:</strong> ${vehicle.year}</div>
+                        <div class="mb-2"><strong>Mileage:</strong> ${vehicle.mileage} miles</div>
+                        <div class="mb-2"><strong>Fuel Type:</strong> ${vehicle.fuel}</div>
+                        <div class="mb-3"><strong>Transmission:</strong> ${vehicle.transmission}</div>
+                        <h6>Features:</h6>
+                        <ul class="list-unstyled">
+                            ${vehicle.features.map(feature => `<li><i class="fas fa-check text-success me-2"></i>${feature}</li>`).join('')}
+                        </ul>
+                    </div>
+                </div>
+            `;
+
+            new bootstrap.Modal(modal).show();
+        }
+
+        // Initialize charts
+        function initializeCharts() {
+            // Sales Chart
+            const salesCtx = document.getElementById('salesChart').getContext('2d');
+            new Chart(salesCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                    datasets: [{
+                        label: 'Monthly Sales',
+                        data: [45, 52, 38, 65, 58, 72],
+                        borderColor: '#0d6efd',
+                        backgroundColor: 'rgba(13, 110, 253, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Monthly Sales Performance'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            // Category Chart
+            const categoryCtx = document.getElementById('categoryChart').getContext('2d');
+            new Chart(categoryCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Sedan', 'SUV', 'Electric', 'Luxury'],
+                    datasets: [{
+                        data: [35, 30, 20, 15],
+                        backgroundColor: [
+                            '#198754',
+                            '#0d6efd',
+                            '#ffc107',
+                            '#dc3545'
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Vehicle Categories'
+                        },
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        }
+
+        // Initialize event listeners
+        function initializeEventListeners() {
+            // Contact form submission
+            document.getElementById('contactForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                showSuccessMessage('Thank you for your message! We\'ll get back to you soon.');
+                this.reset();
+            });
+
+            // Modal form submissions
+            document.getElementById('buyForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                showSuccessMessage('Your inquiry has been submitted! Our team will contact you shortly.');
+                bootstrap.Modal.getInstance(document.getElementById('buyModal')).hide();
+                this.reset();
+            });
+
+            document.getElementById('sellForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                showSuccessMessage('Your vehicle information has been submitted! We\'ll provide an appraisal soon.');
+                bootstrap.Modal.getInstance(document.getElementById('sellModal')).hide();
+                this.reset();
+            });
+
+            document.getElementById('rentForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                showSuccessMessage('Your rental request has been submitted! We\'ll confirm availability shortly.');
+                bootstrap.Modal.getInstance(document.getElementById('rentModal')).hide();
+                this.reset();
+            });
+
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        }
+
+        // Animate counters
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-number');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const counter = entry.target;
+                        const target = parseInt(counter.getAttribute('data-count'));
+                        const duration = 2000;
+                        const step = target / (duration / 16);
+                        let current = 0;
+
+                        const timer = setInterval(() => {
+                            current += step;
+                            if (current >= target) {
+                                current = target;
+                                clearInterval(timer);
+                            }
+                            counter.textContent = Math.floor(current);
+                        }, 16);
+
+                        observer.unobserve(counter);
+                    }
+                });
+            });
+
+            counters.forEach(counter => observer.observe(counter));
+        }
+
+        // Update navbar on scroll
+        function updateNavbarOnScroll() {
+            window.addEventListener('scroll', function() {
+                const navbar = document.querySelector('.navbar');
+                if (window.scrollY > 100) {
+                    navbar.style.background = 'rgba(255, 255, 255, 0.98)';
+                } else {
+                    navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+                }
+            });
+        }
+
+        // Theme toggle functionality
+        function toggleTheme() {
+            const body = document.body;
+            const themeIcon = document.getElementById('theme-icon');
+            
+            if (body.getAttribute('data-theme') === 'dark') {
+                body.removeAttribute('data-theme');
+                themeIcon.className = 'fas fa-moon';
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                themeIcon.className = 'fas fa-sun';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Load saved theme
+        function loadTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.body.setAttribute('data-theme', 'dark');
+                document.getElementById('theme-icon').className = 'fas fa-sun';
+            }
+        }
+
+        // Utility functions
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        function showSuccessMessage(message) {
+            // Create and show success alert
+            const alert = document.createElement('div');
+            alert.className = 'alert alert-success alert-dismissible fade show position-fixed';
+            alert.style.cssText = 'top: 100px; right: 20px; z-index: 9999; min-width: 300px;';
+            alert.innerHTML = `
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
+            
+            document.body.appendChild(alert);
+            
+            // Auto-remove after 5 seconds
+            setTimeout(() => {
+                if (alert.parentNode) {
+                    alert.remove();
+                }
+            }, 5000);
+        }
+
+        // Load theme on page load
+        loadTheme();
+
+        // Add loading animation to buttons
+        document.querySelectorAll('button[type="submit"]').forEach(button => {
+            button.addEventListener('click', function() {
+                const originalText = this.innerHTML;
+                this.innerHTML = '<span class="loading me-2"></span>Processing...';
+                this.disabled = true;
+                
+                setTimeout(() => {
+                    this.innerHTML = originalText;
+                    this.disabled = false;
+                }, 2000);
+            });
+        });
+    </script>
+</body>
+</html>
